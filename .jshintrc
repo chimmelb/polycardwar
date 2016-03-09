@@ -1,0 +1,32 @@
+{
+  "node": true,
+  "browser": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "noarg": true,
+  "undef": true,
+  "unused": true,
+  "newcap": false,
+  "globals": {
+    "wrap": true,
+    "unwrap": true,
+    "Polymer": true,
+    "Platform": true,
+    "page": true,
+    "router": true,
+    "Router": true,
+    "app": true,
+    "OT": true,
+    "ActionheroClient": true,
+    "alert": true,
+    "apiClient": true,
+    "Parse": true,
+    "SuperGif": true,
+    "Howl": true
+  }
+}

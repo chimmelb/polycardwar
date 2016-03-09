@@ -49,12 +49,16 @@ var styleTask = function(stylesPath, srcs) {
   return gulp.src(srcs.map(function(src) {
       return path.join('app', stylesPath, src);
     }))
-    .pipe($.changed(stylesPath, {extension: '.css'}))
+    .pipe($.changed(stylesPath, {
+      extension: '.css'
+    }))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/' + stylesPath))
     .pipe($.minifyCss())
     .pipe(gulp.dest(dist(stylesPath)))
-    .pipe($.size({title: stylesPath}));
+    .pipe($.size({
+      title: stylesPath
+    }));
 };
 
 var imageOptimizeTask = function(src, dest) {
@@ -64,7 +68,9 @@ var imageOptimizeTask = function(src, dest) {
       interlaced: true
     }))
     .pipe(gulp.dest(dest))
-    .pipe($.size({title: 'images'}));
+    .pipe($.size({
+      title: 'images'
+    }));
 };
 
 var optimizeHtmlTask = function(src, dest) {
@@ -114,6 +120,31 @@ gulp.task('ensureFiles', function(cb) {
   ensureFiles(requiredFiles.map(function(p) {
     return path.join(__dirname, p);
   }), cb);
+});
+
+
+// Lint JavaScript
+gulp.task('lint', function() {
+  return gulp.src([
+      'app/scripts/**/*.js',
+      'app/elements/**/*.js',
+      'app/elements/**/*.html',
+      'gulpfile.js'
+    ])
+    .pipe(reload({
+      stream: true,
+      once: true
+    }))
+
+  // JSCS has not yet a extract option
+  .pipe($.if('*.html', $.htmlExtract()))
+    .pipe($.jshint())
+    .pipe($.jscs({
+      fix: true
+    }))
+    .pipe($.jscsStylish.combineWithHintResults())
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
 
 // Optimize images
@@ -171,7 +202,9 @@ gulp.task('vulcanize', function() {
       inlineScripts: true
     }))
     .pipe(gulp.dest(dist('elements')))
-    .pipe($.size({title: 'vulcanize'}));
+    .pipe($.size({
+      title: 'vulcanize'
+    }));
 });
 
 // Generate config data for the <sw-precache-cache> element.
@@ -192,8 +225,10 @@ gulp.task('cache-config', function(callback) {
     'index.html',
     './',
     'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '{elements,scripts,styles}/**/*.*'],
-    {cwd: dir}, function(error, files) {
+    '{elements,scripts,styles}/**/*.*'
+  ], {
+    cwd: dir
+  }, function(error, files) {
     if (error) {
       callback(error);
     } else {
@@ -215,7 +250,7 @@ gulp.task('clean', function() {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['styles', 'elements'], function() {
+gulp.task('serve', ['lint', 'styles', 'elements'], function() {
   browserSync({
     port: 5000,
     notify: false,
@@ -241,6 +276,7 @@ gulp.task('serve', ['styles', 'elements'], function() {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
+  gulp.watch(['app/{scripts,elements}/**/{*.js,*.html}'], ['lint']);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -272,8 +308,7 @@ gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
     ['ensureFiles', 'copy', 'styles'],
-    'elements',
-    ['images', 'fonts', 'html'],
+    'elements', ['lint', 'images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
     cb);
 });
