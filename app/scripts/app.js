@@ -17,6 +17,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Sets app default base URL
   app.baseUrl = '/';
+
+  app.game = {
+    state: {
+      currentTurn: 'player1'
+    },
+    player1: {
+      name: 'Player 1',
+      stack1: ['1'],
+      stack2: ['2'],
+      stack3: ['3'],
+      stack4: [],
+      stack5: ['5'],
+    },
+    player2: {
+      name: 'Computer',
+      stack1: ['1'],
+      stack2: [],
+      stack3: ['3'],
+      stack4: ['4'],
+      stack5: ['5'],
+    }
+  };
+
   if (window.location.port === '') { // if production
     // Uncomment app.baseURL below and
     // set app.baseURL to '/your-pathname/' if running from folder in production

@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="card-stack">
+  <template>
+    <!-- Will repeat later, when building the components, not just the layout
+    <template is="dom-repeat" items="{{data}}">
+      <game-card value="{{item}}"></game-card>
+    </template>
+-->
+    <div class="card-stack"></div>
+    <style include="shared-styles">
+      .card-stack {
+        @apply(--layout-flex);
+        background-color: coral;
+      }
+    </style>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'card-stack',
+        properties: {
+          data: {
+            type: Array,
+            notify: true
+          }
+        },
+        ready: function() {}
+      });
+    })();
+  </script>
+</dom-module>

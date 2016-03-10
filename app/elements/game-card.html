@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="game-card">
+  <template>
+    <div>{{value}}</div>
+    <style include="shared-styles">
+
+    </style>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'game-card',
+        properties: {
+          value: {
+            type: String,
+            notify: true
+          }
+
+        },
+        ready: function() {}
+      });
+    })();
+  </script>
+</dom-module>
