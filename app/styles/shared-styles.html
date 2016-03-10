@@ -5,11 +5,18 @@
 <dom-module id="shared-styles">
   <template>
     <style>
+      .inherit {
+        color: inherit;
+        background-color: inherit;
+      }
+
       .page-title {
         @apply(--paper-font-display2);
       }
 
-      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+      paper-menu a > *,
+      paper-menu paper-item > *,
+      paper-menu paper-icon-item > * {
         pointer-events: none;
       }
 

@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // More info: https://visionmedia.github.io/page.js/
 
     // Removes end / from app.baseUrl which page.base requires for production
-    if (window.location.port === '') {  // if production
+    if (window.location.port === '') { // if production
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -38,29 +38,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('/', function() {
-      app.route = 'home';
+      app.route = 'landing';
     });
 
     page(app.baseUrl, function() {
-      app.route = 'home';
+      app.route = 'landing';
     });
 
-    page('/users', function() {
-      app.route = 'users';
+    page('/new', function() {
+      app.route = 'new';
     });
 
-    page('/users/:name', function(data) {
-      app.route = 'user-info';
-      app.params = data.params;
-    });
-
-    page('/contact', function() {
-      app.route = 'contact';
+    page('/game', function() {
+      app.route = 'game';
     });
 
     // 404
     page('*', function() {
-      app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
+      app.$.toast.text = 'Can\'t find: ' + window.location.href + '. Redirected you to Home Page';
       app.$.toast.show();
       page.redirect(app.baseUrl);
     });
