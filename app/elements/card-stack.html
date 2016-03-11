@@ -21,18 +21,18 @@
           "iron-resize": "resized"
         },
         resized: function() {
-          var height = this.offsetHeight - 2;
-          var stackWidth = this.offsetWidth - 2;
+          var height = this.clientHeight * 0.9;
+          var stackWidth = this.offsetWidth;
           if (height > 0) {
-            var calcWidth = height * 64 / 89;
+            var calcWidth = Math.floor(height * 64 / 89);
             if (calcWidth < stackWidth / 2) {
               //cards will fit when fanned out, 1/4 of width showing for up to 4 cards, then full 5th card
-              this.cardHeight = height - 2;
-              this.cardWidth = calcWidth - 2;
+              this.cardHeight = height;
+              this.cardWidth = calcWidth;
             } else {
               //calc width and height to fit inside parent box
-              this.cardHeight = stackWidth / 2 * 89 / 64 - 2;
-              this.cardWidth = stackWidth / 2 - 2;
+              this.cardHeight = Math.floor(stackWidth / 2 * 89 / 64);
+              this.cardWidth = Math.floor(stackWidth / 2);
             }
             console.log('For stack ' + stackWidth + 'x' + height + ', setting cards to ' + this.cardWidth + 'x' + this.cardHeight);
           }
