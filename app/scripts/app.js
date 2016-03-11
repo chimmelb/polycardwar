@@ -24,17 +24,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
     player1: {
       name: 'Player 1',
-      stack1: ['1'],
+      stack1: ['1', '2', '3', '4', '5'],
       stack2: ['2'],
       stack3: ['3'],
       stack4: [],
-      stack5: ['5'],
+      stack5: ['5', '4', '3', '2', '1'],
     },
     player2: {
       name: 'Computer',
       stack1: ['6'],
       stack2: [],
-      stack3: ['8'],
+      stack3: ['K', '8', '9'],
       stack4: ['9'],
       stack5: ['10'],
     }

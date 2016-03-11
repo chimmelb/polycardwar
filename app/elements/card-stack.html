@@ -3,10 +3,13 @@
 <dom-module id="card-stack">
   <template>
     <template is="dom-repeat" items="{{data}}">
-      <game-card class="card-in-stack" rank="{{item}}" card-width="[[cardWidth]]" card-height="[[cardHeight]]"></game-card>
+      <game-card style$="{{calcMargin(reverse, index, cardWidth)}}" class="card-in-stack" rank="{{item}}" card-width="[[cardWidth]]" card-height="[[cardHeight]]">
+      </game-card>
     </template>
     <style include="shared-styles">
-      .card-in-stack {}
+      .card-in-stack {
+        position: absolute;
+      }
     </style>
 
   </template>
@@ -37,6 +40,16 @@
             console.log('For stack ' + stackWidth + 'x' + height + ', setting cards to ' + this.cardWidth + 'x' + this.cardHeight);
           }
         },
+        fanDirection: function(isReversed) {
+          return (isReversed ? 'right' : 'left');
+        },
+        calcMargin: function(reverse, index, cardWidth) {
+          console.log('Calculating the margin for reverse ' + reverse + ' index ' + index + ' width ' + cardWidth);
+          var margin = 'margin-' + (reverse ? 'right' : 'left') + ': ' + Math.floor(index * (cardWidth / 4)) + 'px;';
+          var zidx = 'z-index: ' + (index + 2) + ';';
+          var position = (reverse ? 'right' : 'left') + ': 0;';
+          return margin + zidx + position;
+        },
         properties: {
           data: {
             type: Array,
@@ -51,6 +64,11 @@
             type: Number,
             notify: true,
             value: 64
+          },
+          reverse: {
+            type: Boolean,
+            notify: true,
+            value: false
           }
         }
       });

@@ -5,20 +5,20 @@
   <template>
     <div class="game-area">
       <paper-material class="player-area left" elevation="1">
-        <card-stack data="{{game.player1.stack1}}" left></card-stack>
-        <card-stack data="{{game.player1.stack2}}" left></card-stack>
-        <card-stack data="{{game.player1.stack3}}" left></card-stack>
-        <card-stack data="{{game.player1.stack4}}" left></card-stack>
-        <card-stack data="{{game.player1.stack5}}" left></card-stack>
+        <card-stack data="{{game.player1.stack1}}"></card-stack>
+        <card-stack data="{{game.player1.stack2}}"></card-stack>
+        <card-stack data="{{game.player1.stack3}}"></card-stack>
+        <card-stack data="{{game.player1.stack4}}"></card-stack>
+        <card-stack data="{{game.player1.stack5}}"></card-stack>
       </paper-material>
       <paper-material class="duel-area" elevation="2">
       </paper-material>
       <paper-material class="player-area right" elevation="1">
-        <card-stack data="{{game.player2.stack1}}" right></card-stack>
-        <card-stack data="{{game.player2.stack2}}" right></card-stack>
-        <card-stack data="{{game.player2.stack3}}" right></card-stack>
-        <card-stack data="{{game.player2.stack4}}" right></card-stack>
-        <card-stack data="{{game.player2.stack5}}" right></card-stack>
+        <card-stack data="{{game.player2.stack1}}" reverse></card-stack>
+        <card-stack data="{{game.player2.stack2}}" reverse></card-stack>
+        <card-stack data="{{game.player2.stack3}}" reverse></card-stack>
+        <card-stack data="{{game.player2.stack4}}" reverse></card-stack>
+        <card-stack data="{{game.player2.stack5}}" reverse></card-stack>
       </paper-material>
     </div>
     <style include="shared-styles">
@@ -62,6 +62,7 @@
         @apply(--layout-start-justified);
         @apply(--layout-center);
         padding: 1%;
+        position: relative;
       }
 
       .player-area.right card-stack {
