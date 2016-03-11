@@ -2,17 +2,11 @@
 
 <dom-module id="card-stack">
   <template>
-    <!-- Will repeat later, when building the components, not just the layout
     <template is="dom-repeat" items="{{data}}">
-      <game-card value="{{item}}"></game-card>
+      <game-card class="card-in-stack" rank="{{item}}" card-width="[[cardWidth]]" card-height="[[cardHeight]]"></game-card>
     </template>
--->
-    <div class="card-stack"></div>
     <style include="shared-styles">
-      .card-stack {
-        @apply(--layout-flex);
-        background-color: coral;
-      }
+      .card-in-stack {}
     </style>
 
   </template>
@@ -22,13 +16,43 @@
 
       Polymer({
         is: 'card-stack',
+        behaviors: [Polymer.IronResizableBehavior],
+        listeners: {
+          "iron-resize": "resized"
+        },
+        resized: function() {
+          var height = this.offsetHeight - 2;
+          var stackWidth = this.offsetWidth - 2;
+          if (height > 0) {
+            var calcWidth = height * 64 / 89;
+            if (calcWidth < stackWidth / 2) {
+              //cards will fit when fanned out, 1/4 of width showing for up to 4 cards, then full 5th card
+              this.cardHeight = height - 2;
+              this.cardWidth = calcWidth - 2;
+            } else {
+              //calc width and height to fit inside parent box
+              this.cardHeight = stackWidth / 2 * 89 / 64 - 2;
+              this.cardWidth = stackWidth / 2 - 2;
+            }
+            console.log('For stack ' + stackWidth + 'x' + height + ', setting cards to ' + this.cardWidth + 'x' + this.cardHeight);
+          }
+        },
         properties: {
           data: {
             type: Array,
             notify: true
+          },
+          cardHeight: {
+            type: Number,
+            notify: true,
+            value: 89
+          },
+          cardWidth: {
+            type: Number,
+            notify: true,
+            value: 64
           }
-        },
-        ready: function() {}
+        }
       });
     })();
   </script>

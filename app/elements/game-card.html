@@ -2,9 +2,66 @@
 
 <dom-module id="game-card">
   <template>
-    <div>{{value}}</div>
-    <style include="shared-styles">
+    <div class="game-card">
+      <div id="cardFront" class$="front {{isFlipped(show)}}" style$="width: {{cardWidth}}px; height: {{cardHeight}}px" on-click="flip">
+        <div class="rank left">{{rank}}</div>
+        <div class="rank right">{{rank}}</div>
+      </div>
+      <div id="cardBack" class$="back {{isFlipped(show)}}" style$="width: {{cardWidth}}px; height: {{cardHeight}}px" on-click="flip"></div>
+    </div>
 
+    <style include="shared-styles">
+      .game-card {
+        @apply(--layout-flex);
+        position: relative;
+        transition: transform .5s linear 0s;
+        backface-visibility: hidden;
+      }
+
+      .game-card .front {
+        background-color: white;
+        transform: rotateY( 180deg);
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        position: absolute;
+        border: 1px solid black;
+      }
+
+      .game-card.front .rank {
+        border: none;
+      }
+
+      .game-card.front .rank.left {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .game-card.front .rank.right {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      .game-card.front.flipped {
+        transform: rotateY( 0deg);
+      }
+
+      .game-card .back {
+        background-color: coral;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        background-image: url('../images/touch/icon-72x72.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        transform: rotateY( 0deg);
+        border: 1px solid black;
+      }
+
+      .game-card.back.flipped {
+        transform: rotateY( -180deg);
+      }
     </style>
 
   </template>
@@ -14,14 +71,31 @@
 
       Polymer({
         is: 'game-card',
+        isFlipped: function(show) {
+          return show ? 'flipped' : '';
+        },
+        flip: function() {
+          this.show = !this.show;
+        },
         properties: {
-          value: {
+          rank: {
             type: String,
             notify: true
+          },
+          show: {
+            type: Boolean,
+            notify: true,
+            value: false
+          },
+          cardHeight: {
+            type: Number,
+            notify: true
+          },
+          cardWidth: {
+            type: Number,
+            notify: true
           }
-
-        },
-        ready: function() {}
+        }
       });
     })();
   </script>

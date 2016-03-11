@@ -32,11 +32,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
     player2: {
       name: 'Computer',
-      stack1: ['1'],
+      stack1: ['6'],
       stack2: [],
-      stack3: ['3'],
-      stack4: ['4'],
-      stack5: ['5'],
+      stack3: ['8'],
+      stack4: ['9'],
+      stack5: ['10'],
     }
   };
 
